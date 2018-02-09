@@ -307,7 +307,9 @@ endfunction
 
 function! s:base.hl_cursor_on()
 	if exists("self.variables.old_guicursor")
-		set guicursor&
+		if exists("guicursor")
+			set guicursor&
+		endif
 		let &guicursor = self.variables.old_guicursor
 		unlet self.variables.old_guicursor
 	endif
@@ -325,7 +327,9 @@ function! s:base.hl_cursor_off()
 	endif
 
 	let self.variables.old_guicursor = &guicursor
-	set guicursor=n:block-NONE
+	if exists("guicursor")
+		set guicursor=n:block-NONE
+	endif
 	let self.variables.old_t_ve = &t_ve
 	set t_ve=
 endfunction
